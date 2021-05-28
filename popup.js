@@ -21,12 +21,20 @@ changeColor.addEventListener("click", async () => {
   var priceNeededMM = realBuyPriceMaker/(1-(feeMaker/100));
   var priceNeededTM = realBuyPriceTaker/(1-(feeMaker/100));
   var priceNeededMT = realBuyPriceMaker/(1-(feeTaker/100));
-  var text = document.createTextNode("You need the price to be above:\n"+
-                                    "Taker-Taker: "+ priceNeededTT 
-                                    + " \nMaker-Maker: " + priceNeededMM
-                                    + " \nTaker-Maker:" + priceNeededTM
-                                    + " \nMaker-Taker:" + priceNeededMT);
-   tag.appendChild(text);
+  var header = document.createTextNode("You need the price to be above:");
+  tag.appendChild(header);
+  var tt = document.createTextNode("Taker-Taker: "+ priceNeededTT );
+  tag.appendChild(document.createElement('br'));
+  tag.appendChild(tt);
+  var mm = document.createTextNode(" \nMaker-Maker: " + priceNeededMM);
+  tag.appendChild(document.createElement('br'));
+  tag.appendChild(mm);
+  var tm = document.createTextNode(" \nTaker-Maker: " + priceNeededTM);
+  tag.appendChild(document.createElement('br'));
+  tag.appendChild(tm);
+  var mt = document.createTextNode("Maker-Taker: " + priceNeededMT);
+  tag.appendChild(document.createElement('br'));
+  tag.appendChild(mt);
    var element = document.getElementById("results");
    element.appendChild(tag);
   // chrome.scripting.executeScript({
