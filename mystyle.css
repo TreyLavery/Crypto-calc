@@ -1,0 +1,28 @@
+input {
+    background-color: lightgrey;
+  }
+
+label {
+  color:peru;
+  font-size: large;
+}
+
+button{
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 4px;
+  text-align: center;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+}
+#Calculate{
+  background-color: #03C03C;
+  
+}
+
+#SaveFees{
+  background-color: red;
+  float: right;
+}

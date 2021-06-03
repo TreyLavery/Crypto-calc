@@ -1,10 +1,12 @@
-let changeColor = document.getElementById("Calculate");
+let calculatePressed = document.getElementById("Calculate");
+let saveFees = document.getElementById("SaveFees");
+let load = document.getElementById("Load");
 
 // chrome.storage.sync.get("color", ({ color }) => {
 //   changeColor.style.backgroundColor = color;
 // });
 
-changeColor.addEventListener("click", async () => {
+calculatePressed.addEventListener("click", async () => {
   //let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   var price = document.getElementById("price").value;
   var feeTaker = document.getElementById("feeTaker").value;
@@ -43,6 +45,20 @@ changeColor.addEventListener("click", async () => {
   // });
 });
 
+saveFees.addEventListener("click", async () =>{
+  var feeTaker = document.getElementById("feeTaker").value;
+  var feeMaker = document.getElementById("feeMaker").value;
+
+  chrome.storage.sync.set({"FeeTaker": feeTaker});
+  chrome.storage.sync.set({"FeeMaker": feeMaker});
+});
+
+load.addEventListener("click", async () =>{
+  chrome.storage.sync.get(["FeeTaker", "FeeMaker"], function(results){
+    document.getElementById("feeTaker").value = results.FeeTaker;
+    document.getElementById("feeMaker").value = results.FeeMaker;
+  });
+});
 
 // The body of this function will be executed as a content script inside the
 // current page

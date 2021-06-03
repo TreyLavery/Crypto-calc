@@ -2,10 +2,11 @@
 <html>
   <head>
     <title>CoinBasePro Profit Line</title>
+    <link rel = "stylesheet" href="mystyle.css">
   </head>
-  <body>
+  <body style="background-color: dimgrey;">
     <h1>    CBP Profit Line!    </h1>
-    <form>
+    <form id = userInput>
       <label for="price">Price Bought:</label><br>
       <input type="number" id="price" name="price"><br>
       <label for="feeMaker">Fee Maker %:</label><br>
@@ -13,7 +14,9 @@
       <label for="feeTaker">Fee Taker %:</label><br>
       <input type="number" id="feeTaker" name="feeTaker"><br><br>
     </form>
-    <button id="Calculate">Calculate!</button>
+    <button id="Calculate">Calculate</button>
+    <button id="Load">Load</button>
+    <button id="SaveFees">Save Fees</button>
     <div id = "results" style="min-width: 200px"></div>
     <script src="popup.js"></script>
   </body>
