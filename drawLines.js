@@ -5,3 +5,5 @@ chrome.runtime.onInstalled.addListener(() => {
   console.log('Default background color set to %cgreen', `color: ${color}`);
 });
 
+chrome.browserAction.onClicked.addListener()
+
