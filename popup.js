@@ -1,7 +1,6 @@
 let calculatePressed = document.getElementById("Calculate");
 let saveFees = document.getElementById("SaveFees");
 let load = document.getElementById("Load");
-let activeTab = chrome.tabs.getSelected
 
 chrome.storage.sync.get(["FeeTaker", "FeeMaker"], function(results){
   document.getElementById("feeTaker").value = results.FeeTaker;
@@ -55,6 +54,8 @@ saveFees.addEventListener("click", async () =>{
   var feeTaker = document.getElementById("feeTaker").value;
   var feeMaker = document.getElementById("feeMaker").value;
 
+  chrome.storage.sync.set({"FeeTaker": feeTaker});
+  chrome.storage.sync.set({"FeeMaker": feeMaker});
 });
 
 
