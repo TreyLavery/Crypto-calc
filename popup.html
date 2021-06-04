@@ -7,12 +7,45 @@
   <body style="background-color: dimgrey;">
     <h1>    CBP Profit Line!    </h1>
     <form id = userInput>
-      <label for="price">Price Bought:</label><br>
+      <label for="price">Price Bought:</label>
       <input type="number" id="price" name="price"><br>
-      <label for="feeMaker">Fee Maker %:</label><br>
-      <input type="number" id="feeMaker" name="feMaker"><br>
-      <label for="feeTaker">Fee Taker %:</label><br>
-      <input type="number" id="feeTaker" name="feeTaker"><br><br>
+      <label for = "Target%">Target Gain %</label>
+      <select id="target" name="target">
+        <option value=0 selected >0%</option>
+        <option value=.01>1%</option>
+        <option value=.03>3%</option>
+        <option value=.05>5%</option>
+        <option value=.1>10%</option>
+      </select>
+      <div id = "feeInput">
+        <label for="feeMaker">Maker%:</label>
+        <select id="feeMaker" name="feeMaker">
+          <option value=.5>.5</option>
+          <option value=.35>.35</option>
+          <option value=.15>.15</option>
+          <option value=.1>.1</option>
+          <option value=.08>.08</option>
+          <option value=.05>.05</option>
+          <option value=.02>.02</option>
+          <option value=.0>.0</option>
+        </select>
+        <label for="feeTaker">Taker%:</label>
+        <select id="feeTaker" name="feeTaker">
+          <option value=.5>.5</option>
+          <option value=.35>.35</option>
+          <option value=.25>.25</option>
+          <option value=.2>.2</option>
+          <option value=.18>.18</option>
+          <option value=.15>.15</option>
+          <option value=.10>.10</option>
+          <option value=.06>.06</option>
+          <option value=.05>.05</option>
+          <option value=.04>.04</option>
+        </select>
+        <!--<input type="number" id="feeTaker" name="feeTaker" size="4"><br> -->
+        
+      </div>
+      
     </form>
     <button id="Calculate">Calculate</button>
     <button id="SaveFees">Save Fees</button>

@@ -5,6 +5,8 @@ input {
 label {
   color:peru;
   font-size: large;
+  white-space: nowrap;
+  
 }
 
 button{
@@ -17,6 +19,11 @@ button{
   font-size: 14px;
   border-radius: 4px;
 }
+#feeInput{
+  white-space: nowrap;
+  padding-bottom: 8px;
+}
+
 #Calculate{
   background-color: #03C03C;
   
