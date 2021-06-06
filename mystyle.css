@@ -1,6 +1,9 @@
 input {
     background-color: lightgrey;
   }
+select{
+  background-color: lightgrey;
+}
 
 label {
   color:peru;

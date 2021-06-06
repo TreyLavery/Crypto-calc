@@ -1,68 +1,80 @@
 let calculatePressed = document.getElementById("Calculate");
 let saveFees = document.getElementById("SaveFees");
-let load = document.getElementById("Load");
+
+// var tab;
+// chrome.tabs.query({active: true, currentWindow: true }, (tabs) => {
+//   tab = tabs[0];
+//   chrome.scripting.executeScript({
+//     target: {tabId: tabs[0].id},
+//     function: getOrderPrice,
+//   },
+//   function(value) {
+//     document.getElementById("price").value = value;
+//   }
+//   )
+// });
+
+function getOrderPrice(){
+  return document.querySelector("input[data-pup='Trade_LimitOrder_Price']").value;
+};
+
+// chrome.scripting.executeScript({
+//   target: {tabId: tab.id},
+//   function: getOrderPrice,
+// },
+// (value) => {
+//   document.getElementById("price").value = value;
+// }
+// )
+
 
 chrome.storage.sync.get(["FeeTaker", "FeeMaker"], function(results){
   document.getElementById("feeTaker").value = results.FeeTaker;
   document.getElementById("feeMaker").value = results.FeeMaker;
 });
 
-// chrome.storage.sync.get("color", ({ color }) => {
-//   changeColor.style.backgroundColor = color;
-// });
 
 calculatePressed.addEventListener("click", async () => {
-  //let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   var price = document.getElementById("price").value;
   var feeTaker = document.getElementById("feeTaker").value;
   var feeMaker = document.getElementById("feeMaker").value;
+  let target = document.getElementById("target").value;
   var tag = document.createElement("p");
-  // var increase_needed_buy = (fee/100)*price;
-  // var target_price_buy = (increase_needed_buy) + parseFloat(price);
-  // var target_price = (target_price_buy)/(1-(fee/100));
-  //var target_price = calculatePriceNeeded(feeTaker,feeTaker,price);
-  var realBuyPriceTaker = ((feeTaker/100)*price)+parseFloat(price);
-  var realBuyPriceMaker = ((feeMaker/100)*price)+parseFloat(price);
-  //Price needed is how much the price must be with these fees
-  var priceNeededTT = realBuyPriceTaker/(1-(feeTaker/100));
-  var priceNeededMM = realBuyPriceMaker/(1-(feeMaker/100));
-  var priceNeededTM = realBuyPriceTaker/(1-(feeMaker/100));
-  var priceNeededMT = realBuyPriceMaker/(1-(feeTaker/100));
+
+  var priceTT = calculatePrice(price, feeTaker,feeTaker,target);
+  var priceMM = calculatePrice(price,feeMaker,feeMaker,target);
+  var priceTM = calculatePrice(price,feeTaker,feeMaker,target);
+  var priceMT = calculatePrice(price,feeMaker,feeTaker,target);
+
+
   var header = document.createTextNode("You need the price to be above:");
   tag.appendChild(header);
-  var tt = document.createTextNode("Taker-Taker: "+ priceNeededTT );
+  var tt = document.createTextNode("Taker-Taker: "+ priceTT );
   tag.appendChild(document.createElement('br'));
   tag.appendChild(tt);
-  var mm = document.createTextNode(" \nMaker-Maker: " + priceNeededMM);
+  var mm = document.createTextNode(" \nMaker-Maker: " + priceMM);
   tag.appendChild(document.createElement('br'));
   tag.appendChild(mm);
-  var tm = document.createTextNode(" \nTaker-Maker: " + priceNeededTM);
+  var tm = document.createTextNode(" \nTaker-Maker: " + priceTM);
   tag.appendChild(document.createElement('br'));
   tag.appendChild(tm);
-  var mt = document.createTextNode("Maker-Taker: " + priceNeededMT);
+  var mt = document.createTextNode("Maker-Taker: " + priceMT);
   tag.appendChild(document.createElement('br'));
   tag.appendChild(mt);
-   var element = document.getElementById("results");
-   element.appendChild(tag);
-  // chrome.scripting.executeScript({
-  //   target: { tabId: tab.id },
-  //   function: setPageBackgroundColor,
-  // });
+  var element = document.getElementById("results");
+  element.appendChild(tag);
 });
+
 
 saveFees.addEventListener("click", async () =>{
   var feeTaker = document.getElementById("feeTaker").value;
   var feeMaker = document.getElementById("feeMaker").value;
-
-  chrome.storage.sync.set({"FeeTaker": feeTaker});
-  chrome.storage.sync.set({"FeeMaker": feeMaker});
+  chrome.storage.sync.set({"FeeTaker": feeTaker,"FeeMaker": feeMaker});
 });
 
-
-// The body of this function will be executed as a content script inside the
-// current page
-function setPageBackgroundColor() {
-  chrome.storage.sync.get("color", ({ color }) => {
-    document.body.style.backgroundColor = color;
-  });
+function calculatePrice(price, buyFee, sellFee,target){
+  var realValue = ((buyFee)*price)+parseFloat(price);
+  realValue += (realValue * target);
+  return realValue/(1-(sellFee));
 }
+
